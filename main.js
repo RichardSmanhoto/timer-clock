@@ -4,29 +4,32 @@ var stopClock = document.querySelector("button#stop");
 
 var count;
 
-var hour = 00;
-var minutes = 00;
-var seconds = 00;
-
-
 startClock.onclick = () => {
+  var timeInput = document.querySelector("input#time");
+
+  var time = {
+    hour: timeInput.value.split(":")[0],
+    minutes: timeInput.value.split(":")[1],
+    seconds: timeInput.value.split(":")[2]
+  }
+
   startClock.setAttribute("disabled", "disabled");
   count = setInterval(() => {
-  showTime.innerHTML = `${hour}:${minutes}:${seconds}`;
-  if ( hour == 0 && minutes == 0 && seconds == 0) {
+  showTime.innerHTML = `${time.hour}:${time.minutes}:${time.seconds}`;
+  if ( time.hour == 0 && time.minutes == 0 && time.seconds == 0) {
     clearInterval(count);
   }
-  if(seconds == 00) {
-    seconds = 59;
+  if(time.seconds == 00) {
+    time.seconds = 59;
     
-    if(minutes == 00) {
-      minutes = 59;
+    if(time.minutes == 00) {
+      time.minutes = 59;
     }
-    else {minutes--;}
-    if(hour > 0) {
-      hour--;
+    else {time.minutes--;}
+    if(time.hour > 0) {
+      time.hour--;
     }
-  } else{ seconds--;}
+  } else{ time.seconds--;}
   }, 1000);
 }
 
