@@ -1,23 +1,20 @@
 var showTime = document.querySelector("p#showTime");
 var startClock = document.querySelector("button#init");
+var pauseClock = document.querySelector("button#pause");
 var stopClock = document.querySelector("button#stop"); 
 
+var time = {
+  hour: 0,
+  minutes: 0,
+  seconds: 0
+};
 var count;
 
-startClock.onclick = () => {
-  var timeInput = document.querySelector("input#time");
 
-  var time = {
-    hour: timeInput.value.split(":")[0],
-    minutes: timeInput.value.split(":")[1],
-    seconds: timeInput.value.split(":")[2]
-  }
-
-  startClock.setAttribute("disabled", "disabled");
-  count = setInterval(() => {
+function clock() {
   showTime.innerHTML = `${time.hour}:${time.minutes}:${time.seconds}`;
   if ( time.hour == 0 && time.minutes == 0 && time.seconds == 0) {
-    clearInterval(count);
+    restart();
   }
   if(time.seconds == 00) {
     time.seconds = 59;
@@ -30,11 +27,42 @@ startClock.onclick = () => {
       time.hour--;
     }
   } else{ time.seconds--;}
-  }, 1000);
+}
+
+
+startClock.onclick = () => {
+  var timeInput = document.querySelector("input#time");
+
+  time.hour = timeInput.value.split(":")[0],
+  time.minutes = timeInput.value.split(":")[1],
+  time.seconds = timeInput.value.split(":")[2]
+
+  startClock.setAttribute("disabled", "disabled");
+  count = setInterval(clock, 1000);
 }
 
 stopClock.onclick = () => {
+  time.hour = 0;
+  time.minutes = 0;
+  time.seconds = 0;
+  restart();
+}
+
+var p = true;
+pauseClock.onclick = () => {
+  if (p) {
+    clearInterval(count);
+    p = false;
+    pauseClock.textContent = "Continue";
+  } else {
+    count = setInterval(clock, 1000);
+    p = true;
+    pauseClock.textContent = "Pause";
+  }
+}
+
+function restart(){
+  showTime.innerHTML = `${time.hour}:${time.minutes}:${time.seconds}`;
   startClock.removeAttribute("disabled");
   clearInterval(count);
 }
-
