@@ -37,14 +37,15 @@ startClock.onclick = () => {
   time.minutes = timeInput.value.split(":")[1],
   time.seconds = timeInput.value.split(":")[2]
 
-  startClock.setAttribute("disabled", "disabled");
+  startClock.setAttribute("disabled", "disabled"); //impossibilito de o usuario clicar de novo em "Done" para iniciar o clock novamente enviar bug de duplo intervalo
+  clock();
   count = setInterval(clock, 1000);
 }
 
 stopClock.onclick = () => {
-  time.hour = 0;
-  time.minutes = 0;
-  time.seconds = 0;
+  time.hour = "00";
+  time.minutes = "00";
+  time.seconds = "00";
   restart();
 }
 
