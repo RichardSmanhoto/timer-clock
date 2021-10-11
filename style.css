@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Share Tech Mono', monospace; /*! LEMBRAR DE CORRIGIR AS FONTES*/
 }
 .container {
 width: 100vw;
@@ -19,7 +19,7 @@ background: #9A9483;
 }
 
 button {
-  background-color: #E5DCC3;
+  background-color: #C7BEA2;
   font-size: 13;
   width: 165px;
   height: 35px;
@@ -27,8 +27,29 @@ button {
   border: none;
   border-radius: 8px;
   color: black;
+  transition-duration: 0.4s;
+  box-shadow: 0px;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+button:enabled:hover {
+  background-color: #E5DCC3;
 }
 
 #pause {
   margin-bottom: 20px;
+}
+
+#init {
+  margin: 10px;  
+  padding: 2px;
+  width: 75px;
+}
+input#time {
+  width: 75%;
+  padding: 12px 20px;
+
+  box-sizing: border-box;
 }

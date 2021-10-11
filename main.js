@@ -14,7 +14,7 @@ var count;
 function clock() {
   showTime.innerHTML = `${time.hour}:${time.minutes}:${time.seconds}`;
   if ( time.hour == 0 && time.minutes == 0 && time.seconds == 0) {
-    restart();
+    return restart();
   }
   if(time.seconds == 00) {
     time.seconds = 59;
@@ -37,7 +37,9 @@ startClock.onclick = () => {
   time.minutes = timeInput.value.split(":")[1],
   time.seconds = timeInput.value.split(":")[2]
 
-  startClock.setAttribute("disabled", "disabled"); //impossibilito de o usuario clicar de novo em "Done" para iniciar o clock novamente enviar bug de duplo intervalo
+  pauseClock.removeAttribute("disabled");
+  stopClock.removeAttribute("disabled");
+  startClock.setAttribute("disabled", "disabled"); //*impossibilito de o usuario clicar de novo em "Done" para iniciar o clock novamente enviar bug de duplo intervalo
   clock();
   count = setInterval(clock, 1000);
 }
@@ -50,7 +52,7 @@ stopClock.onclick = () => {
 }
 
 var p = true;
-pauseClock.onclick = () => {
+pauseClock.onclick =() => {
   if (p) {
     clearInterval(count);
     p = false;
@@ -62,8 +64,13 @@ pauseClock.onclick = () => {
   }
 }
 
+
 function restart(){
   showTime.innerHTML = `${time.hour}:${time.minutes}:${time.seconds}`;
-  startClock.removeAttribute("disabled");
   clearInterval(count);
+  p = true;
+  pauseClock.textContent = "Pause";
+  startClock.removeAttribute("disabled");
+  pauseClock.setAttribute("disabled", "disabled"); 
+  stopClock.setAttribute("disabled", "disabled"); 
 }
